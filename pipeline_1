@@ -26,15 +26,10 @@ pipeline {
     }
 
     post {
-        always {
-            emailext (
-                to: 'arpanmallik173@gmail.com',
-                subject: "Build ${currentBuild.result ?: 'COMPLETED'}: ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
-                body: """<p>The build for <b>${env.JOB_NAME}</b> has finished.</p>
-                         <p><b>Status:</b> ${currentBuild.result ?: 'SUCCESS'}</p>
-                         <p>Check the console output here: <a href='${env.BUILD_URL}'>${env.BUILD_URL}</a></p>""",
-                mimeType: 'text/html'
-            )
+        success {
+            mail to: 'ashutoshjhas250904@gmail.com',
+            subject: 'jenkins job triggered',
+            body: "Your jenkins mail was sucessful\n\nJob Name: ${env.JOB_NAME}\nBuild Number: ${env.BUILD_NUMBER}\nBuild URL: ${env.BUILD_URL}"
         }
-    } // <--- Added this to close the 'post' block
+    }
 } // <--- Added this to close the 'pipeline' block
